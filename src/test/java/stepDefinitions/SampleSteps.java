@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -7,6 +8,9 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.Map;
@@ -99,5 +103,46 @@ public class SampleSteps {
     @Given("^I am on action page$")
     public void iAmOnActionPage() {
         driver.get("https://kristinek.github.io/site/examples/actions");
+
+    }
+
+    @Given("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+    @And("^I should see number page header$")
+    public void iShouldSeeNumberPageHeader() throws Throwable {
+        assertEquals("Enter a number",
+                driver.findElement(By.cssSelector("h2")).getText());
+    }
+
+    @And("^I enter \"([^\"]*)\" in the field$")
+    public void iEnterTextInTheField(String text) throws Throwable {
+        driver.findElement(By.id("numb")).sendKeys(text);
+    }
+
+    @And("^I click the result$")
+    public void iClickTheResult() {
+        
+    }
+
+    @And("^I click submit button$")
+    public void iClickSubmitButton() {
+        driver.findElement(By.className("w3-btn")).click();
+    }
+
+    @Then("^Error message is: \"([^\"]*)\"$")
+    public void errorMessageIs(String message) throws Throwable {
+        Thread.sleep(2000);
+        assertEquals(message, driver.findElement(By.id("ch1_error")).getText());
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+    @Then("^Message is: \"([^\"]*)\"$")
+    public void messageIs(String message) throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        String result = alert.getText();
+        assertEquals(message, result);
     }
 }
+
