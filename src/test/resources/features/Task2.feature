@@ -31,4 +31,22 @@ Feature: Persons
     Then I Click Reset list button
 
 
+  @debug
+  Scenario Outline: Add person
+    When I go to the person page
+    And I click on the Add person button
+    And I enter name "<name>"
+    And I enter surname "<surname>"
+    And I enter job "<job>"
+    And I enter Date of Birth "<date>"
+    And I click on the Add button
+
+
+    @working
+    Examples:
+      | name  | surname | job | date |
+      | Marry | Jane  | Reporter | 06.08.1983 |
+      | Henry | Jackson | Actor  | 03.05.1967 |
+
+
 
